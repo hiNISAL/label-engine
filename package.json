@@ -1,6 +1,5 @@
 {
   "name": "label-engine",
-  "private": true,
   "version": "0.0.1",
   "scripts": {
     "dev": "cross-env RUNTIME=WEB bunx --bun vite",
