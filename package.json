@@ -1,0 +1,36 @@
+{
+  "name": "label-engine",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "cross-env RUNTIME=WEB bunx --bun vite",
+    "build": "cross-env RUNTIME=WEB tsc && bunx --bun vite build",
+    "http": "npx ts-node ./src/http/index.ts"
+  },
+  "devDependencies": {
+    "@types/koa-cors": "^0.0.6",
+    "@types/koa-router": "^7.4.8",
+    "@types/node": "^22.10.2",
+    "cross-env": "^7.0.3",
+    "prettier": "^3.3.3",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^13.1.0",
+    "@leafer-in/editor": "^1.2.1",
+    "@leafer-in/flow": "^1.2.1",
+    "@leafer-in/text-editor": "^1.2.1",
+    "@leafer-ui/node": "^1.2.1",
+    "dotenv": "^16.4.7",
+    "koa": "^2.15.3",
+    "koa-body": "^6.0.1",
+    "koa-cors": "^0.0.16",
+    "koa-router": "^13.0.1",
+    "leafer-ui": "^1.2.1",
+    "puppeteer": "^23.11.1",
+    "skia-canvas": "^2.0.1",
+    "ts-node": "^10.9.2"
+  }
+}
