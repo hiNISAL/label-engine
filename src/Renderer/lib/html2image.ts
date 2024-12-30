@@ -1,5 +1,15 @@
 import * as puppeteer from 'puppeteer';
 
+// -------------------------------------------------------------------------
+
+let pptrOpts: Record<string, any> = {};
+
+export const setPuppeteerLaunchOptions = (opts: Record<string, any>): void => {
+  pptrOpts = opts;
+};
+
+// -------------------------------------------------------------------------
+
 let browser: puppeteer.Browser | null = null;
 let pagePool: puppeteer.Page[] = [];
 
@@ -28,6 +38,7 @@ async function getBrowser() {
     browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      ...pptrOpts,
     });
 
     for (let i = 0; i < 10; i++) {
