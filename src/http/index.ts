@@ -32,6 +32,25 @@ router.post('/label/render', async (ctx) => {
   ctx.body = body;
 });
 
+router.post('/label/render/leafer', async (ctx) => {
+  const { dsl } = ctx.request.body;
+
+  const renderer = new LabelRenderer({
+    dsl,
+  });
+
+  const res = await renderer.toPNG();
+
+  const body = {
+    data: {
+      image: res.data,
+    },
+    code: 0,
+  };
+
+  ctx.body = body;
+});
+
 app.use(router.routes());
 
 app.listen(process.env.PORT, () => {

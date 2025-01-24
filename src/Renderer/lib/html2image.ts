@@ -13,7 +13,21 @@ export const setPuppeteerLaunchOptions = (opts: Record<string, any>): void => {
 let browser: puppeteer.Browser | null = null;
 let pagePool: puppeteer.Page[] = [];
 
-const takeHTMLWrapper = (html: string, width?: number, height?: number) => {
+interface TakeHTMLWrapperOptions {
+  html: string;
+  width?: number;
+  height?: number;
+  backgroundColor?: string;
+  insertToHeader?: string;
+}
+
+const takeHTMLWrapper = ({
+  html,
+  width,
+  height,
+  backgroundColor,
+  insertToHeader,
+}: TakeHTMLWrapperOptions) => {
   return `<html>
   <head>
     <style>
@@ -22,8 +36,10 @@ const takeHTMLWrapper = (html: string, width?: number, height?: number) => {
         padding: 0;
         width: ${width}px;
         height: ${height}px;
+        background-color: ${backgroundColor};
       }
     </style>
+    ${insertToHeader}
   </head>
   <body>
     <div id="html-content">
@@ -74,6 +90,8 @@ interface Html2ImageOptions {
   width?: number;
   height?: number;
   toBase64?: boolean;
+  backgroundColor?: string;
+  insertToHeader?: string;
 }
 export async function html2image(options: Html2ImageOptions): Promise<{
   image: string | Buffer;
@@ -98,16 +116,24 @@ export async function html2image(options: Html2ImageOptions): Promise<{
     // Set viewport size
     await page.setViewport({
       ...(size as any),
-      deviceScaleFactor: 1,
+      deviceScaleFactor: 2,
     });
 
     // Set content and wait for network idle
-    await page.setContent(takeHTMLWrapper(options.html, options.width, options.height), {
-      // waitUntil: 'networkidle0',
-    });
+    await page.setContent(
+      takeHTMLWrapper({
+        html: options.html,
+        width: options.width,
+        height: options.height,
+        backgroundColor: options.backgroundColor,
+        insertToHeader: options.insertToHeader,
+      }),
+      {
+        // waitUntil: 'networkidle0',
+      },
+    );
 
     const actualHeight = await page.evaluate(() => {
-      // @ts-ignore
       const element = document.getElementById('html-content');
       return element?.getBoundingClientRect().height || 0;
     });
@@ -115,7 +141,7 @@ export async function html2image(options: Html2ImageOptions): Promise<{
     await page.setViewport({
       ...(size as any),
       height: Math.ceil(actualHeight),
-      deviceScaleFactor: 1,
+      deviceScaleFactor: 2,
     });
 
     const screenshot = await page.screenshot({

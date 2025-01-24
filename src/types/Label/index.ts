@@ -3,3 +3,5 @@ export interface Label {
   width: number;
   height: number;
 }
+
+export type Padding = [number, number, number, number];

@@ -1,5 +1,6 @@
 import { useCanvas } from '@leafer-ui/node';
-import skia from 'skia-canvas';
+import * as skia from 'skia-canvas';
+// const skia = require('skia-canvas');
 
 useCanvas('skia', skia);
 
