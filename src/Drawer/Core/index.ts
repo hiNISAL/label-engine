@@ -151,7 +151,12 @@ export class DrawerCore {
   // -------------------------------------------------------------------------
   // -------------------------------------------------------------------------
 
-  public exportJSON() {
-    return this.leaferApp.tree.toJSON();
+  public exportJSON(options: { width?: number; height?: number } = {}) {
+    const json = this.leaferApp.tree.toJSON();
+
+    json.width = options.width;
+    json.height = options.height;
+
+    return JSON.stringify(json);
   }
 }

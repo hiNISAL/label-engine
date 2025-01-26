@@ -8,14 +8,14 @@ drawer.enableSnap(true);
 drawer.addRect({ fill: '#FEB027', editable: true, x: 100, y: 100, width: 100, height: 100 });
 drawer.addRect({ fill: '#FEB027', editable: true, x: 100, y: 100, width: 100, height: 100 });
 
-// drawer.addText({
-//   text: 'Hello World',
-//   fontSize: 20,
-//   editable: true,
-//   fill: '#000',
-//   x: 100,
-//   y: 100,
-// });
+drawer.addText({
+  text: 'Hello World',
+  fontSize: 20,
+  editable: true,
+  fill: '#000',
+  x: 200,
+  y: 200,
+});
 
 // drawer.addImage({
 //   url: 'https://static.clewm.net/cli/images/cli_logo_new.png',
@@ -39,3 +39,4 @@ drawer.addRect({ fill: '#FEB027', editable: true, x: 100, y: 100, width: 100, he
 // });
 
 console.log(drawer);
+console.log(drawer.exportJSON({ width: 1000, height: 1000 }));
