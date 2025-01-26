@@ -115,15 +115,16 @@ export class LabelRenderer {
   constructor(options: Options) {
     if (options.label) {
       this.label = options.label;
+      this.dsl = JSON.parse(this.label.dsl);
     } else {
+      this.dsl = JSON.parse(options.dsl as unknown as string);
+
       this.label = {
         dsl: options.dsl as unknown as string,
-        width: options?.dsl?.width,
-        height: options?.dsl?.height,
+        width: this?.dsl?.width,
+        height: this?.dsl?.height,
       };
     }
-
-    this.dsl = JSON.parse(this.label.dsl);
 
     this.leafer = new Leafer(
       {
