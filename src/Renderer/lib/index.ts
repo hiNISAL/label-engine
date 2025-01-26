@@ -92,6 +92,8 @@ Platform.image.crossOrigin = 'anonymous';
 interface Options {
   label?: Label;
   dsl?: Record<string, any>;
+  width?: number;
+  height?: number;
 }
 
 export class LabelRenderer {
@@ -116,13 +118,16 @@ export class LabelRenderer {
     if (options.label) {
       this.label = options.label;
       this.dsl = JSON.parse(this.label.dsl);
+
+      this.label.width = options.width || this.label.width;
+      this.label.height = options.height || this.label.height;
     } else {
       this.dsl = JSON.parse(options.dsl as unknown as string);
 
       this.label = {
         dsl: options.dsl as unknown as string,
-        width: this?.dsl?.width,
-        height: this?.dsl?.height,
+        width: options.width || this?.dsl?.width,
+        height: options.height || this?.dsl?.height,
       };
     }
 

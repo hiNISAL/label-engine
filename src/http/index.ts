@@ -33,10 +33,20 @@ router.post('/label/render', async (ctx) => {
 });
 
 router.post('/label/render/leafer', async (ctx) => {
-  const { dsl } = ctx.request.body;
+  const { dsl, width, height } = ctx.request.body;
+
+  if (!dsl) {
+    ctx.body = {
+      code: 1,
+      message: 'dsl is required',
+    };
+    return;
+  }
 
   const renderer = new LabelRenderer({
     dsl,
+    width,
+    height,
   });
 
   const res = await renderer.toPNG();
