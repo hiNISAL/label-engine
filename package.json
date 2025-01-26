@@ -5,7 +5,7 @@
     "dev": "cross-env RUNTIME=WEB bunx --bun vite",
     "build": "cross-env RUNTIME=WEB tsc && bunx --bun vite build",
     "http": "npx ts-node ./src/http/index.ts",
-    "start": "pm2 start ecosystem.config.js",
+    "start": "pm2 start ./src/http/index.ts --interpreter ./node_modules/.bin/ts-node",
     "stop": "pm2 stop label-engine && pm2 delete label-engine"
   },
   "devDependencies": {
